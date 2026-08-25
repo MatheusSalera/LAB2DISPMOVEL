@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #d3d3d3;
+}
+
+.pagina {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #d3d3d3;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.responsivo-frame {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+}
+
+.responsivo-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.sites-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.caixa-sites {
+  word-break: break-word;
+}
+
+.caixa-sites a {
+  word-break: break-all;
+}
+
+
+.tabela-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    gap: 20px !important;
+  }
+
+  .caixa-sites {
+    width: 75% !important;
+  }
+}
+
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column !important;
+    gap: 8px !important;
+    align-items: center !important;
+  }
+
+  .livros-lista {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  .sites-wrapper {
+    justify-content: center;
+  }
+
+  .caixa-sites {
+    width: 80% !important;
+    max-width: 80% !important;
+  }
+
+  footer {
+    flex-direction: column;
+
+  }
+}
