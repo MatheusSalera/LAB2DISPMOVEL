@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora</title>
+
+
+    <link rel="stylesheet" href="./Calculadora.css" />
+
+
+    <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+
+
+    <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+      }
+      #erro {
+        display: none;
+        margin: 24px;
+        padding: 16px 20px;
+        border-radius: 12px;
+        background: #2b1f1f;
+        border: 1px solid #b9553e;
+        color: #f3d8d0;
+        font-family: ui-monospace, Menlo, monospace;
+        font-size: 14px;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <pre id="erro"></pre>
+
+    <script>
+   
+      const ARQUIVOS = ["./Calculadora.jsx", "./App.jsx"];
+
+      function removerModulos(codigo) {
+        return codigo
+          .replace(/^[ \t]*import\s+[^;]*?\s+from\s*["'][^"']+["'];?[ \t]*$/gm, "")
+          .replace(/^[ \t]*import\s*["'][^"']+["'];?[ \t]*$/gm, "")
+          .replace(/^[ \t]*export\s+default\s+/gm, "")
+          .replace(/^[ \t]*export\s+(?=(function|class|const|let|var))/gm, "");
+      }
+
+      function mostrarErro(mensagem) {
+        const box = document.getElementById("erro");
+        box.style.display = "block";
+        box.textContent = mensagem;
+        console.error(mensagem);
+      }
+
+      (async () => {
+        const mount = document.getElementById("root");
+
+        try {
+          const fontes = await Promise.all(
+            ARQUIVOS.map(async (arquivo) => {
+              const res = await fetch(arquivo, { cache: "no-store" });
+              if (!res.ok) {
+                throw new Error(`Não consegui carregar ${arquivo} (HTTP ${res.status})`);
+              }
+              return `// ---- ${arquivo} ----\n` + removerModulos(await res.text());
+            })
+          );
+
+          const codigo = [
+         
+            "const { useState, useEffect, useRef, useMemo, useCallback, useReducer, useContext, Fragment } = React;",
+            ...fontes,
+            "ReactDOM.createRoot(mount).render(React.createElement(App));",
+          ].join("\n\n");
+
+          const compilado = Babel.transform(codigo, {
+          
+            presets: [["react", { runtime: "classic" }]],
+            sourceType: "script",
+            filename: "app.jsx",
+          }).code;
+
+          new Function("React", "ReactDOM", "mount", compilado)(React, ReactDOM, mount);
+        } catch (e) {
+          mostrarErro("Erro ao montar a calculadora:\n\n" + (e && e.message ? e.message : e));
+        }
+      })();
+    </script>
+  </body>
+</html>
