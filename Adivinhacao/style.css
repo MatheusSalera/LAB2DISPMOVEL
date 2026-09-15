@@ -1,0 +1,65 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+.jogo {
+  background-color: gray;
+  padding: 30px;
+  border-radius: 6px;
+  width: 260px;
+  text-align: center;
+}
+
+.jogo input {
+  width: 90%;
+  padding: 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 3px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.jogo button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 1px solid #333;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.jogo button:hover {
+  background-color: #cfcfcf;
+}
+
+.mensagem {
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 3px;
+  color: white;
+}
+
+.grande {
+  background-color: red;
+}
+
+.pequeno {
+  background-color: #cc7a00;
+}
+
+.correto {
+  background-color: green;
+}
+
+.neutro {
+  background-color: transparent;
+  color: white;
+}
