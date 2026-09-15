@@ -87,7 +87,7 @@ export default function Calculator() {
       return;
     }
 
-    // +, −, ×, ÷
+  
     if (operator && !overwrite) {
       const result = calculate(stored, display, operator);
       setStored(formatDisplay(result));
